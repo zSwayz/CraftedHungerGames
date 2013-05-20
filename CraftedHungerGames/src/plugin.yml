@@ -1,0 +1,10 @@
+name: CraftedHungerGames
+main: net.willhastings.CraftedHungerGames.Main
+version: 0.0.1 Alpa
+author: bill1993
+depend: [Vault]
+
+commands:
+  game:
+    aliases: [hungergame,hgame]
+    description: User to start/stop/join/vote a game.
