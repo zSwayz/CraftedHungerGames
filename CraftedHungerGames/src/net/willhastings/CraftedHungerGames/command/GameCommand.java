@@ -13,11 +13,17 @@ public class GameCommand implements CommandExecutor
 	private void invalidCommand(CommandSender sender)
 	{
 		sender.sendMessage(Main.messageHandler.getMessage("server.prefix", false) + ChatColor.RED + " Invalid or Missing Sub-Command!");
-		if(CFunction.hasPermission(sender, "cm.command.reaction.force"))
+		if(CFunction.hasPermission(sender, "hg.command.game.force"))
 		{
-			sender.sendMessage(Main.messageHandler.getMessage("server.prefix", false) + "/reaction force [top|reaction]");
+			sender.sendMessage(Main.messageHandler.getMessage("server.prefix", false) + "/game new [HungerGame name]");
 		}
-		sender.sendMessage(Main.messageHandler.getMessage("server.prefix", false) + "/reaction top");
+		if(CFunction.hasPermission(sender, "hg.command.game.new"))
+		{
+			sender.sendMessage(Main.messageHandler.getMessage("server.prefix", false) + "/game force [start|stop]");
+		}
+		sender.sendMessage(Main.messageHandler.getMessage("server.prefix", false) + "/reaction join [game]");
+		sender.sendMessage(Main.messageHandler.getMessage("server.prefix", false) + "/reaction info [game]");
+		sender.sendMessage(Main.messageHandler.getMessage("server.prefix", false) + "/reaction list");
 	}
 
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String args[]) 
@@ -34,22 +40,74 @@ public class GameCommand implements CommandExecutor
 			{
 				case NEW:
 				{
-					//Create a new hunger game instance
+					if(!CFunction.hasPermission(sender, "hg.command.game.new")) this.invalidCommand(sender);
+					else
+					{
+						if(args.length < 1) this.invalidCommand(sender);
+						else if(CFunction.hGameExists(args[1]))
+						{
+							sender.sendMessage(Main.messageHandler.getMessage("server.prefix", false) + "A game is already running with the name '"
+									+ ChatColor.GOLD + args[1] + ChatColor.WHITE + "'");
+							break;
+						}
+						else
+						{
+							sender.sendMessage(Main.messageHandler.getMessage("server.prefix", false) + "Creating a hunger game with name '"
+									+ ChatColor.GOLD + args[1] + ChatColor.WHITE + "'");
+							// start hGame
+						}
+						
+					}
 					break;
 				}
 				case JOIN:
 				{
-					//Join a hunger game instance
+					if(args.length < 1) this.invalidCommand(sender);
+					else if(!CFunction.hGameExists(args[1]))
+					{
+						sender.sendMessage(Main.messageHandler.getMessage("server.prefix", false) + "A game could not be found with name '"
+								+ ChatColor.GOLD + args[1] + ChatColor.WHITE + "'");
+					}
+					else
+					{
+						//add use to game
+					}
 					break;
 				}
 				case INFO:
 				{
-					//Info of a current hunger game instance
+					if(args.length < 1) this.invalidCommand(sender);
+					else if(!CFunction.hGameExists(args[1]))
+					{
+						sender.sendMessage(Main.messageHandler.getMessage("server.prefix", false) + "A game could not be found with name '"
+								+ ChatColor.GOLD + args[1] + ChatColor.WHITE + "'");
+					}
+					else
+					{
+						//show game info
+					}
 					break;
+				}
+				case LIST:
+				{
+					//list hungergames
 				}
 				case FORCE:
 				{
-					//force a game to start/end
+					if(!CFunction.hasPermission(sender, "hg.command.game.force")) this.invalidCommand(sender);
+					else
+					{
+						if(args.length < 2) this.invalidCommand(sender);
+						else if(args[1].equalsIgnoreCase("START"))
+						{
+							//forcefully start the game
+						}
+						else if(args[2].equalsIgnoreCase("STOP"))
+						{
+							//forcefully stop the game
+						}
+						else this.invalidCommand(sender);
+					}
 					break;
 				}
 			}
@@ -66,6 +124,7 @@ public class GameCommand implements CommandExecutor
 		NEW,
 		JOIN,
 		INFO,
+		LIST,
 		FORCE
 	}
 }

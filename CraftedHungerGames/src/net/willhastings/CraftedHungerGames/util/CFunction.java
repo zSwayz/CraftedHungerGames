@@ -7,12 +7,16 @@ import org.bukkit.entity.Player;
 
 public class CFunction 
 {
+	public static boolean hGameExists(String game)
+	{
+		return Main.hGame.containsKey(game);
+	}
+	
 	public static boolean hasPermission(CommandSender sender, String perm)
 	{
 		if(sender instanceof Player) return hasPermission((Player) sender, perm);
 		else return sender.isOp();
 	}
-	
 	
 	public static boolean hasPermission(Player player, String perm)
 	{

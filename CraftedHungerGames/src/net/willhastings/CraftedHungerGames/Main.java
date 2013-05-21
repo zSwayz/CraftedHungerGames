@@ -1,5 +1,6 @@
 package net.willhastings.CraftedHungerGames;
 
+import java.util.HashMap;
 import java.util.logging.Logger;
 
 import net.milkbowl.vault.economy.Economy;
@@ -16,12 +17,17 @@ public class Main extends JavaPlugin
     public static Permission permission = null;
     public static Economy economy = null;
     
-    public static MessageHandler messageHandler;
+    public static MessageHandler messageHandler;    
+    public static HashMap<String, HungerGame> hGame = new HashMap<String, HungerGame>();
     
 	public Logger log = Logger.getLogger("Minecraft");
 	
+	private static Main plugin;
+	
 	public void onEnable()
 	{
+		plugin = this;
+		
 		log.info("|________ ..-' CraftedHungerGames - Loading '-..________|");
 		
 		log.info("|-Initilizing Commands                                  |");	
@@ -70,5 +76,10 @@ public class Main extends JavaPlugin
 	    }
 	
 	    return (economy != null);
+	}
+
+	public static Main getPlugin()
+	{
+		return plugin;
 	}
 }
