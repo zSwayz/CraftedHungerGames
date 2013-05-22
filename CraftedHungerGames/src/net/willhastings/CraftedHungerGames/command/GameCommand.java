@@ -1,8 +1,10 @@
 package net.willhastings.CraftedHungerGames.command;
 
+import net.willhastings.CraftedHungerGames.HungerGame;
 import net.willhastings.CraftedHungerGames.Main;
 import net.willhastings.CraftedHungerGames.util.CFunction;
 
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -15,7 +17,7 @@ public class GameCommand implements CommandExecutor
 		sender.sendMessage(Main.messageHandler.getMessage("server.prefix", false) + ChatColor.RED + " Invalid or Missing Sub-Command!");
 		if(CFunction.hasPermission(sender, "hg.command.game.force"))
 		{
-			sender.sendMessage(Main.messageHandler.getMessage("server.prefix", false) + "/game new [HungerGame name]");
+			sender.sendMessage(Main.messageHandler.getMessage("server.prefix", false) + "/game new [HungerGame name] [Max Tributes]");
 		}
 		if(CFunction.hasPermission(sender, "hg.command.game.new"))
 		{
@@ -43,7 +45,13 @@ public class GameCommand implements CommandExecutor
 					if(!CFunction.hasPermission(sender, "hg.command.game.new")) this.invalidCommand(sender);
 					else
 					{
-						if(args.length < 1) this.invalidCommand(sender);
+						if(args.length < 2) this.invalidCommand(sender);
+						else if (CFunction.isInteger(args[2]))
+						{
+							sender.sendMessage(Main.messageHandler.getMessage("server.prefix", false) + "Invalid peramiter type: 'Max Tributes' is an integer value!");
+							this.invalidCommand(sender);
+							break;
+						}
 						else if(CFunction.hGameExists(args[1]))
 						{
 							sender.sendMessage(Main.messageHandler.getMessage("server.prefix", false) + "A game is already running with the name '"
@@ -54,7 +62,8 @@ public class GameCommand implements CommandExecutor
 						{
 							sender.sendMessage(Main.messageHandler.getMessage("server.prefix", false) + "Creating a hunger game with name '"
 									+ ChatColor.GOLD + args[1] + ChatColor.WHITE + "'");
-							// start hGame
+							Main.hGame.put(args[1], new HungerGame(Integer.parseInt(args[2])));
+							Bukkit.broadcastMessage(Main.messageHandler.getFormatedMessage("game.new", true, args[1]));
 						}
 						
 					}
@@ -65,12 +74,19 @@ public class GameCommand implements CommandExecutor
 					if(args.length < 1) this.invalidCommand(sender);
 					else if(!CFunction.hGameExists(args[1]))
 					{
-						sender.sendMessage(Main.messageHandler.getMessage("server.prefix", false) + "A game could not be found with name '"
-								+ ChatColor.GOLD + args[1] + ChatColor.WHITE + "'");
+						sender.sendMessage(Main.messageHandler.getFormatedMessage("game.not.found", true, args[1]));
 					}
 					else
 					{
-						//add use to game
+						HungerGame game = Main.hGame.get(args[1]);
+						if(game.getNumOfTributes() < game.getMaxTributes())
+						{
+							//add tribute
+						}
+						else
+						{
+							sender.sendMessage(Main.messageHandler.getFormatedMessage("game.full", true, args[1]));
+						}
 					}
 					break;
 				}

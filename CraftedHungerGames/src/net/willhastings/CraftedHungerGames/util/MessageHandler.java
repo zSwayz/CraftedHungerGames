@@ -20,6 +20,11 @@ public class MessageHandler
 	private String FILE_PATH; 
 	private String FILE_NAME;
 	
+	/**
+	 * 
+	 * @param plgin plugin
+	 * 
+	 */
 	public MessageHandler(Main plgin)
 	{
 		plugin = plgin;
@@ -33,6 +38,13 @@ public class MessageHandler
 		if(!b) plugin.getLogger().severe("MessageHandler: failed to load defaults!");
 	}
 	
+	/**
+	 * 
+	 * @param key message to retrieve
+	 * @param prefix add plugin prefix in front of message.
+	 * @return returns the message from the map
+	 * 
+	 */
 	public String getMessage(String key, boolean prefix)
 	{
 		String temp;
@@ -56,6 +68,14 @@ public class MessageHandler
 		return temp;
 	}
 	
+	/**
+	 * 
+	 * @param key message to be retrieved
+	 * @param prefix add plugin prefix to message
+	 * @param params parameters
+	 * @return returns the string with the needed parameters
+	 * 
+	 */
 	public String getFormatedMessage(String key, boolean prefix, Object ... params)
 	{
 		String temp;
@@ -81,6 +101,11 @@ public class MessageHandler
 		return temp;
 	}
 	
+	/**
+	 * 
+	 * @return return true if messages.properties reloaded successfully.
+	 * 
+	 */
 	public boolean reload()
 	{
 		msg.clear();

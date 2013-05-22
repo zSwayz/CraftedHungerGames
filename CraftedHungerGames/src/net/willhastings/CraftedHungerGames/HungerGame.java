@@ -7,54 +7,133 @@ import net.willhastings.CraftedHungerGames.util.User;
 public class HungerGame 
 {
 	private String prevWinner;
-	private ArrayList<User> member = new ArrayList<User>();
+	private int maxTributes;
+	private ArrayList<User> tribute = new ArrayList<User>();
 	private ArrayList<Kit> kit = new ArrayList<Kit>();
 	
 	public HungerGame()
 	{
-		//to-do
+		this(-1);
 	}
 	
-	public ArrayList<User> getMembers()
+	/**
+	 * 
+	 * @param max Max amount of tributes for this game.
+	 * 
+	 */
+	public HungerGame(int max) 
 	{
-		return this.member;
+		this.setMaxTributes(max);
 	}
 	
-	public int getNumOfPlayers()
+	/**
+	 * 
+	 * @param num sets the max number of tributes. -1 for infinite.
+	 * 
+	 */
+	public void setMaxTributes(int num)
 	{
-		return this.member.size();
+		this.maxTributes = num;
 	}
 	
-	public boolean addMember(User user)
+	/**
+	 * 
+	 * @return returns the max tributes for this game.
+	 * 
+	 */
+	public int getMaxTributes()
 	{
-		return this.member.add(user);
+		return this.maxTributes;
 	}
-	
-	public boolean removeMember(User user)
+
+	/**
+	 * 
+	 * @return returns the tributes in this game.
+	 * 
+	 */
+	public ArrayList<User> getTributes()
 	{
-		return this.member.remove(user);
+		return this.tribute;
 	}
 	
+	/**
+	 * 
+	 * @return returns how many tributes are currently in the game.
+	 * 
+	 */
+	public int getNumOfTributes()
+	{
+		return this.tribute.size();
+	}
+	
+	/**
+	 * 
+	 * @param tribute tribute to be added.
+	 * @return true if successfully added, false if not.
+	 * 
+	 */
+	public boolean addTribute(User tribute)
+	{
+		return this.tribute.add(tribute);
+	}
+	
+	/**
+	 * 
+	 * @param tribute will remove the tribute from the game.
+	 * @return returns true if the user was succefuly remove from the game.
+	 * 
+	 */
+	public boolean removeTribute(User tribute)
+	{
+		return this.tribute.remove(tribute);
+	}
+	
+	/**
+	 * 
+	 * @param name set the winner of the previous match.
+	 * 
+	 */
 	public void setPrevWinner(String name)
 	{
 		this.prevWinner = name;
 	}
 	
+	/**
+	 * 
+	 * @return the previous winners name.
+	 * 
+	 */
 	public String getPrevWinner()
 	{
 		return this.prevWinner;
 	}
 	
+	/**
+	 * 
+	 * @param kit Will link a kit to the game.
+	 * @return returns true if the kit was successfully added.
+	 * 
+	 */
 	public boolean addKit(Kit kit)
 	{
 		return this.kit.add(kit);
 	}
 	
+	/**
+	 * 
+	 * @return returns the kits linked to the game.
+	 * 
+	 */
 	public ArrayList<Kit> getKits()
 	{
 		return this.kit;
 	}
 	
+	/**
+	 * 
+	 * @return returns the number of kits in the game.
+	 * 
+	 */
 	public int getNumOfKits()
 	{
 		return this.kit.size();

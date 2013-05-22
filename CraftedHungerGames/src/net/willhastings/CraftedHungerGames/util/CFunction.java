@@ -12,6 +12,19 @@ public class CFunction
 		return Main.hGame.containsKey(game);
 	}
 	
+	public static boolean isInteger(String toCheck)
+	{
+		try
+		{
+			Integer.parseInt(toCheck);
+		}
+		catch (NumberFormatException e) 
+		{
+			return false;
+		}
+		return true;
+	}
+	
 	public static boolean hasPermission(CommandSender sender, String perm)
 	{
 		if(sender instanceof Player) return hasPermission((Player) sender, perm);

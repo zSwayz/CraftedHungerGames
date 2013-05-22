@@ -16,6 +16,12 @@ public class SQLite
 	private static Driver d;
 	private String url;
 	
+	/**
+	 * 
+	 * @param dir directory
+	 * @param dbName database name without ending!!!!
+	 * 
+	 */
 	public SQLite(String dir, String dbName)
 	{
 		loadDriver();
@@ -39,6 +45,12 @@ public class SQLite
 		}
 	}
 	
+	/**
+	 * 
+	 * @param sql SQL Query to be executed.
+	 * @return returns if the Query is successful or not.
+	 * 
+	 */
 	public Boolean Query(String sql)
 	{
 		Statement stmt;
@@ -55,6 +67,12 @@ public class SQLite
 		
 	}
 	
+	/**
+	 * 
+	 * @param sql SQL Query to be executed.
+	 * @return returns the following ResultSet.
+	 * 
+	 */
 	public ResultSet QueryRes(String sql)
 	{
 		try
