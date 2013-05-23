@@ -2,28 +2,89 @@ package net.willhastings.CraftedHungerGames;
 
 import java.util.ArrayList;
 
+import org.bukkit.World;
+import org.bukkit.WorldCreator;
+
 import net.willhastings.CraftedHungerGames.util.User;
 
 public class HungerGame 
 {
-	private String prevWinner;
+	private String prevWinner, worldString;
+	private World world;
 	private int maxTributes;
+	private boolean canEdit, locked = false;
 	private ArrayList<User> tribute = new ArrayList<User>();
 	private ArrayList<Kit> kit = new ArrayList<Kit>();
-	
-	public HungerGame()
-	{
-		this(-1);
-	}
 	
 	/**
 	 * 
 	 * @param max Max amount of tributes for this game.
+	 * @param worldName the name of the world to use.
+	 * @param edit allow tributes to edit the world. True = allow edit, False = no editing allowed.
 	 * 
 	 */
-	public HungerGame(int max) 
+	public HungerGame(int max, String worldName, boolean edit) 
 	{
 		this.setMaxTributes(max);
+		this.setWorldString(worldName);
+		this.world = this.loadWorld();
+		this.setWorldEdit(edit);
+	}
+	
+	public World getWorld()
+	{
+		return this.world;
+	}
+	
+	private void setWorldString(String string)
+	{
+		this.world = Main.getPlugin().getServer().getWorld(string);
+	}
+	
+	private World loadWorld()
+	{
+		Main.getPlugin().getServer().createWorld(new WorldCreator(this.worldString));
+		return Main.getPlugin().getServer().getWorld(this.worldString);
+	}
+	
+	/**
+	 * 
+	 * @param val True = locks hungergame, False = unlocks hungergame.
+	 * 
+	 */
+	public void setLoacked(boolean val)
+	{
+		this.locked = val;
+	}
+	
+	/**
+	 * 
+	 * @return if the HungerGame is locked or not.
+	 * 
+	 */
+	public boolean isLocked()
+	{
+		return this.locked;
+	}
+	
+	/**
+	 * 
+	 * @param val true/false value if tributes will be allowed to edit the world.
+	 * 
+	 */
+	public void setWorldEdit(boolean val)
+	{
+		this.canEdit = val;
+	}
+	
+	/**
+	 * 
+	 * @return if tributes can edit the terrain/map
+	 *
+	 */	
+	public boolean canEdit()
+	{
+		return this.canEdit;
 	}
 	
 	/**

@@ -62,7 +62,7 @@ public class GameCommand implements CommandExecutor
 						{
 							sender.sendMessage(Main.messageHandler.getMessage("server.prefix", false) + "Creating a hunger game with name '"
 									+ ChatColor.GOLD + args[1] + ChatColor.WHITE + "'");
-							Main.hGame.put(args[1], new HungerGame(Integer.parseInt(args[2])));
+							//to-do load game!
 							Bukkit.broadcastMessage(Main.messageHandler.getFormatedMessage("game.new", true, args[1]));
 						}
 						
