@@ -26,25 +26,28 @@ public class HungerGame
 	public HungerGame(int max, String worldName, boolean edit) 
 	{
 		this.setMaxTributes(max);
-		this.setWorldString(worldName);
+		
+		this.worldString = worldName;
 		this.world = this.loadWorld();
+		
 		this.setWorldEdit(edit);
-	}
-	
-	public World getWorld()
-	{
-		return this.world;
-	}
-	
-	private void setWorldString(String string)
-	{
-		this.world = Main.getPlugin().getServer().getWorld(string);
 	}
 	
 	private World loadWorld()
 	{
 		Main.getPlugin().getServer().createWorld(new WorldCreator(this.worldString));
 		return Main.getPlugin().getServer().getWorld(this.worldString);
+	}
+	
+	/**
+	 * 
+	 * @return return the World that is in use by the hungergame
+	 * 
+	 */
+	
+	public World getWorld()
+	{
+		return this.world;
 	}
 	
 	/**

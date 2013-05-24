@@ -1,5 +1,6 @@
 package net.willhastings.CraftedHungerGames;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.logging.Logger;
 
@@ -13,12 +14,12 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 public class Main extends JavaPlugin
 {
-	
-    public static Permission permission = null;
+	public static Permission permission = null;
     public static Economy economy = null;
     
     public static MessageHandler messageHandler;    
     public static HashMap<String, HungerGame> hGame = new HashMap<String, HungerGame>();
+    public static ArrayList<String> hGameList = new ArrayList<String>();
     
 	public Logger log = Logger.getLogger("Minecraft");
 	
